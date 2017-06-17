@@ -22,6 +22,9 @@ classes:
     - name: resource_type
       type: string
       filter_index: true
+    - name: status
+      type: string
+      filter_index: true
     - name: details
       type: object
 endpoints:
@@ -82,6 +85,27 @@ endpoints:
         - exit_code: 400
           description: Failed
           example: {}
+  update:
+    description: Update invitation
+    file: scripts/update.js
+    parameters:
+      key:
+        type: string
+        description: Invitation key
+        example: 1232141254215512521
+      status:
+        type: string
+        description: Status of the invitation
+        example: pending
+    response:
+      mimetype: application/json
+      examples:
+        - exit_code: 200
+          description: Success
+          example: {}
+        - exit_code: 400
+          description: Failed
+          example: {}
   list:
     description: List invitation for given resource ID and type
     file: scripts/list.js
@@ -103,6 +127,7 @@ endpoints:
             [
               {
                 "email": "joe@mail.com",
+                "key": "1232141254215512521",
                 "details": {
                   "company_id": "12345"
                 }
