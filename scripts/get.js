@@ -5,7 +5,7 @@ const { debug } = logger('user-invitation-get')
 const { key } = ARGS
 
 data.invitations
-  .where('key', 'eq', key)
+  .where('key',key)
   .first()
   .then(inv => {
     debug(inv)
