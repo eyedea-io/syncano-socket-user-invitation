@@ -1,0 +1,28 @@
+machine:
+  node:
+    version: 7
+  environment:
+    PATH: "${PATH}:${HOME}/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:${HOME}/${CIRCLE_PROJECT_REPONAME}/node_modules/.bin"
+
+dependencies:
+  override:
+    - yarn global add syncano-cli@beta
+
+test:
+  override:
+    - exit 0
+
+deployment:
+  production:
+    branch: master
+    commands:
+      - syncano-cli submit ${SOCKET_NAME} -b patch
+      - syncano-cli publish ${SOCKET_NAME}
+      - git config --global user.email $GITHUB_EMAIL && git config --global user.name $GITHUB_NAME
+      - git commit -a -m "Bumping version [ci skip]" && git push origin $CIRCLE_BRANCH
+
+experimental:
+  notify:
+    branches:
+      only:
+        - master
