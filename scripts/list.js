@@ -7,16 +7,11 @@ const { resource_id, resource_type } = ARGS
 data.invitations
   .where('resource_id', String(resource_id))
   .where('resource_type', String(resource_type))
+  .fields('key', 'email', 'details', 'status')
   .list()
   .then(invitations => {
-    response.json(invitations.map(({key, email, details, status }) => {
-      return { key, email, details, status }
-    }))
+    response.json(invitations)
   })
-  .catch(err => {
-    console.log(err)
-    err.response.text()
-      .then(resp => {
-        console.log(resp)
-      })
+  .catch(({data}) => {
+    console.log(data)
   })

@@ -17,10 +17,6 @@ data.invitations.create({
   debug(invitation)
   response.json({key})
 })
-.catch(err => {
-  console.log(err)
-  err.response.text()
-    .then(resp => {
-      console.log(resp)
-    })
+.catch(({data}) => {
+  console.log(data)
 })

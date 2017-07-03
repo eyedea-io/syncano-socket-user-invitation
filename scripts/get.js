@@ -5,16 +5,13 @@ const { debug } = logger('user-invitation-get')
 const { key } = ARGS
 
 data.invitations
-  .where('key',key)
+  .where('key', key)
+  .fields('key', 'details', 'email', 'resource_type', 'status')
   .first()
   .then(inv => {
     debug(inv)
     response.json(inv)
   })
-  .catch(err => {
-    console.log(err)
-    err.response.text()
-      .then(resp => {
-        console.log(resp)
-      })
+  .catch(({data}) => {
+    console.log(data)
   })

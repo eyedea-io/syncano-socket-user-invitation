@@ -22,10 +22,25 @@ describe('managing invitations', function() {
   }
 
   it('invite', function(done) {
-    s.post('user-invitation/invite', invitation, {headers: {'Content-Type': 'application/json'}})
+    s.post('user-invitation/invite', invitation)
       .then(response => {
         assert.property(response, 'key')
         invitation.key = response.key
+        done()
+      })
+      .catch(err => {
+        console.log(err)
+        done(err)
+      })
+  })
+
+  it('get', function(done) {
+    s.post('user-invitation/get', {key: invitation.key})
+      .then(inv => {
+        assert.property(inv, 'key')
+        assert.property(inv, 'email')
+        assert.property(inv, 'details')
+        assert.property(inv, 'status')
         done()
       })
       .catch(err => {
@@ -39,11 +54,11 @@ describe('managing invitations', function() {
       key: invitation.key,
       status: 'pending'
     }
-    s.post('user-invitation/update', params, {headers: {'Content-Type': 'application/json'}})
+    s.post('user-invitation/update', params)
       .then(response => {
         assert.property(response, 'key')
         invitation.key = response.key
-        return s.post('user-invitation/get', {key: invitation.key}, {headers: {'Content-Type': 'application/json'}})
+        return s.post('user-invitation/get', {key: invitation.key})
       })
       .then(inv => {
         assert.propertyVal(inv, 'status', 'pending')
@@ -60,7 +75,7 @@ describe('managing invitations', function() {
       resource_id: invitation.resource_id,
       resource_type: invitation.resource_type
     }
-    s.post('user-invitation/list', params, {headers: {'Content-Type': 'application/json'}})
+    s.post('user-invitation/list', params)
       .then(response => {
         assert(Array.isArray(response))
         response.map(inv => {

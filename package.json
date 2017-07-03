@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "syncano-client": "^0.2.1",
+    "syncano-client": "beta",
     "syncano-server": "beta"
   },
   "scripts": {
