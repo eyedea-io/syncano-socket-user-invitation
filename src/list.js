@@ -1,17 +1,27 @@
-import { data, response, logger } from 'syncano-server'
+import Syncano from '@syncano/core'
+import {MODELS} from './constants'
 
+export default async ctx => {
+  const {data, response, logger} = new Syncano(ctx)
+  const {warn, error, info} = logger('user-invitation:list')
+  const {resource_id, resource_type} = ctx.args
 
-const { debug } = logger('user-invitation-list')
-const { resource_id, resource_type } = ARGS
+  if (!ctx.meta.user) {
+    warn('Unauthorized request.')
+    return response.json({message: 'Unauthorized.'}, 401)
+  }
 
-data.invitations
-  .where('resource_id', String(resource_id))
-  .where('resource_type', String(resource_type))
-  .fields('key', 'email', 'details', 'status')
-  .list()
-  .then(invitations => {
-    response.json(invitations)
-  })
-  .catch(({data}) => {
-    console.log(data)
-  })
+  try {
+    const invitations = await data.invitations
+      .where('resource_id', String(resource_id))
+      .where('resource_type', String(resource_type))
+      .fields(MODELS.invitation)
+      .list()
+
+    info(`Successfuly loaded invitations(${invitations.length}).`)
+    response.success(invitations)
+  } catch (err) {
+    error(err)
+    response.fail({message: err.response}, 400)
+  }
+}

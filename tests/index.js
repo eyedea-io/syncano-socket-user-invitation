@@ -1,17 +1,13 @@
-import Syncano from 'syncano-client'
-
-import crypto from 'crypto'
-import _ from 'lodash'
+import Syncano from '@syncano/client'
+import {describe, it} from 'mocha'
 import chai from 'chai'
 import chaiAsPromised from 'chai-as-promised'
 
-
-chai.use(chaiAsPromised);
+chai.use(chaiAsPromised)
 const assert = chai.assert
 const s = new Syncano(process.env.SYNCANO_PROJECT_INSTANCE)
 
-describe('managing invitations', function() {
-
+describe('managing invitations', function () {
   let invitation = {
     email: 'test@email.com',
     resource_id: '1234',
@@ -21,7 +17,7 @@ describe('managing invitations', function() {
     }
   }
 
-  it('invite', function(done) {
+  it('invite', function (done) {
     s.post('user-invitation/invite', invitation)
       .then(response => {
         assert.property(response, 'key')
@@ -34,7 +30,7 @@ describe('managing invitations', function() {
       })
   })
 
-  it('get', function(done) {
+  it('get', function (done) {
     s.post('user-invitation/get', {key: invitation.key})
       .then(inv => {
         assert.property(inv, 'key')
@@ -49,7 +45,7 @@ describe('managing invitations', function() {
       })
   })
 
-  it('update', function(done) {
+  it('update', function (done) {
     const params = {
       key: invitation.key,
       status: 'pending'
@@ -70,7 +66,7 @@ describe('managing invitations', function() {
       })
   })
 
-  it('list', function(done) {
+  it('list', function (done) {
     const params = {
       resource_id: invitation.resource_id,
       resource_type: invitation.resource_type
