@@ -1,6 +1,6 @@
 name: user-invitation
 description: Basic invitation mechanizm for user/resources
-version: 0.0.5
+version: 0.0.6
 keywords:
   - user
   - register
@@ -54,7 +54,7 @@ endpoints:
       success:
         exit_code: 200
         description: Success
-        example:
+        example: null
       fail:
         key: '1232141254215512521'
         exit_code: 400
