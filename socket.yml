@@ -30,8 +30,7 @@ classes:
 endpoints:
   invite:
     description: Create invitation for a given e-mail
-    file: invite.js
-    parameters:
+    inputs:
       email:
         type: string
         description: User e-mail
@@ -51,45 +50,31 @@ endpoints:
           {
             "company_id": "12345"
           }
-    response:
-      mimetype: application/json
-      examples:
-        - exit_code: 200
-          description: Success
-          example:
-            key: '1232141254215512521'
-        - exit_code: 400
-          description: Failed
-          example: {}
+    outputs:
+      success:
+        exit_code: 200
+        description: Success
+        example:
+      fail:
+        key: '1232141254215512521'
+        exit_code: 400
+        description: Failed
+        example: {}
   get:
     description: Get invitation by invtiation key
-    file: get.js
-    parameters:
+    inputs:
       key:
         type: string
         description: Key of the invitation
         example: 1232141254215512600
-    response:
-      mimetype: application/json
-      examples:
-        - exit_code: 200
-          description: Success
-          example: |
-            {
-              "email": "joe@mail.com",
-              "resource_id": "1234",
-              "resource_type": "company",
-              "details": {
-                "company_id": "12345"
-              }
-            }
-        - exit_code: 400
-          description: Failed
-          example: {}
+    outputs:
+      success:
+        exit_code: 200
+      fail:
+        exit_code: 400
   update:
     description: Update invitation
-    file: update.js
-    parameters:
+    inputs:
       key:
         type: string
         description: Invitation key
@@ -98,19 +83,14 @@ endpoints:
         type: string
         description: Status of the invitation
         example: pending
-    response:
-      mimetype: application/json
-      examples:
-        - exit_code: 200
-          description: Success
-          example: {}
-        - exit_code: 400
-          description: Failed
-          example: {}
+    outputs:
+      success:
+        exit_code: 200
+      fail:
+        exit_code: 400
   list:
     description: List invitation for given resource ID and type
-    file: list.js
-    parameters:
+    inputs:
       resource_id:
         type: integer
         description: ID of the resource related to invitation
@@ -119,10 +99,12 @@ endpoints:
         type: string
         description: Type of the resource
         example: company
-    response:
-      mimetype: application/json
-      examples:
-        - exit_code: 200
+    outputs:
+      fail:
+        exit_code: 400
+      success:
+        exit_code: 200
+        examples:
           description: Success
           example: |
             [
@@ -134,6 +116,3 @@ endpoints:
                 }
               }
             ]
-        - exit_code: 400
-          description: Failed
-          example: {}

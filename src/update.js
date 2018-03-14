@@ -1,17 +1,25 @@
-import { data, response, logger } from 'syncano-server'
+import Syncano from '@syncano/core'
 
+export default async ctx => {
+  const {data, response, logger} = new Syncano(ctx)
+  const {warn, error, info} = logger('user-invitation:update')
+  const {key, status} = ctx.args
 
-const { debug } = logger('user-invitation-update')
-const { key, status } = ARGS
+  if (!ctx.meta.user) {
+    warn('Unauthorized request.')
+    return response.json({message: 'Unauthorized.'}, 401)
+  }
 
-data.invitations
-  .where('key', key)
-  .update({status})
-  .then(updateStatus => {
-    debug('updateStatus')
-    debug(updateStatus)
-    response.json({key: updateStatus[0].content.key})
-  })
-  .catch(({ data }) => {
-    console.log(data)
-  })
+  try {
+    const invitation = await data.invitations
+      // .fields(MODELS.invitation) - TODO: fields don't work with update
+      .where('key', key)
+      .update({status})
+
+    info('Sucessfuly updated inviation')
+    response.success(invitation)
+  } catch (err) {
+    error(err)
+    response.fail({message: err.response}, 400)
+  }
+}

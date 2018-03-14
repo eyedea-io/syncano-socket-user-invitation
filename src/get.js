@@ -1,17 +1,26 @@
-import { data, response, logger } from 'syncano-server'
+import Syncano from '@syncano/core'
+import {MODELS} from './constants'
 
+export default async ctx => {
+  const {data, response, logger} = new Syncano(ctx)
+  const {error, info, warn} = logger('user-invitation:get')
+  const {key} = ctx.args
 
-const { debug } = logger('user-invitation-get')
-const { key } = ARGS
+  if (!ctx.meta.user) {
+    warn('Unauthorized request.')
+    return response.json({message: 'Unauthorized.'}, 401)
+  }
 
-data.invitations
-  .where('key', key)
-  .fields('key', 'details', 'email', 'resource_type', 'status')
-  .first()
-  .then(inv => {
-    debug(inv)
-    response.json(inv)
-  })
-  .catch(({data}) => {
-    console.log(data)
-  })
+  try {
+    const invitation = await data.invitations
+      .where('key', key)
+      .fields(MODELS.invitation)
+      .first()
+
+    info(`Invitation with key ${key} was found).`)
+    response.success(invitation)
+  } catch (err) {
+    error(err)
+    response.fail({message: err.response}, 400)
+  }
+}
