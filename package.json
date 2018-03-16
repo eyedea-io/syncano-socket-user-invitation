@@ -7,22 +7,22 @@
     "test": "yarn && npm-run-all --parallel test:lint test:e2e:coverage",
     "test:e2e-single": "cross-env NODE_ENV=test mocha -s 1800 --reporter spec --require babel-register --timeout 4000",
     "test:e2e-single:coverage": "nyc --produce-source-map=true cross-env NODE_ENV=test mocha -s 1800 --reporter spec --require babel-register --timeout 4000",
-    "test:e2e": "npm run test:e2e-single 'tests/*.js'",
+    "test:e2e": "npm run test:e2e-single 'tests/*.test.js'",
     "test:e2e:coverage": "nyc --produce-source-map=true npm run test:e2e",
     "test:lint": "standard --fix"
   },
   "devDependencies": {
+    "@syncano/test": "canary",
+    "@syncano/test-tools": "canary",
     "babel-core": "^6.26.0",
     "chai": "^4.1.2",
-    "chai-as-promised": "^7.1.1",
     "cross-env": "^5.1.4",
+    "lodash.merge": "^4.6.1",
     "mocha": "^3.5.3",
-    "mockery": "^2.1.0",
     "npm-run-all": "^4.1.1",
     "nyc": "^11.2.1",
-    "sinon": "^3.3.0",
-    "standard": "^10.0.3",
-    "syncano-test": "^0.1.10"
+    "sinon": "^4.4.6",
+    "standard": "^10.0.3"
   },
   "babel": {
     "presets": [

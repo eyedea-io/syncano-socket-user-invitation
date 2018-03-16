@@ -1,6 +1,5 @@
 import crypto from 'crypto'
 import Syncano from '@syncano/core'
-import FormData from 'form-data'
 import {MODELS} from './constants'
 
 export default async ctx => {
@@ -13,11 +12,16 @@ export default async ctx => {
   }
 
   try {
-    const form = getForm(ctx)
     const invitation = await data
       .invitations
       .fields(MODELS.invitation)
-      .create(form)
+      .create({
+        details: ctx.args.details,
+        email: ctx.args.email,
+        key: crypto.randomBytes(16).toString('hex'),
+        resource_id: ctx.args.resource_id,
+        resource_type: ctx.args.resource_type
+      })
 
     info('Sucessfuly created inviation')
     response.success(invitation)
@@ -25,16 +29,4 @@ export default async ctx => {
     error(err)
     response.fail({message: err.response}, 400)
   }
-}
-
-function getForm (ctx) {
-  const form = new FormData()
-
-  form.append('details', ctx.args.details)
-  form.append('email', ctx.args.email)
-  form.append('key', crypto.randomBytes(16).toString('hex'))
-  form.append('resource_id', ctx.args.resource_id)
-  form.append('resource_type', ctx.args.resource_type)
-
-  return form
 }
