@@ -1,12 +1,12 @@
 machine:
   node:
-    version: 7
+    version: 8.9.0
   environment:
     PATH: "${PATH}:${HOME}/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:${HOME}/${CIRCLE_PROJECT_REPONAME}/node_modules/.bin"
 
 dependencies:
   override:
-    - yarn global add syncano-cli@beta
+    - yarn global add @syncano/cli@0.10.0-alpha.f21aa8b8
 
 deployment:
   production:
