@@ -4,6 +4,7 @@ export const MODELS = {
     'details',
     'email',
     'resource_type',
+    'resource_id',
     'status'
   ]
 }
