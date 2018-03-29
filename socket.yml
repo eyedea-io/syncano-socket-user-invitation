@@ -1,6 +1,6 @@
 name: user-invitation
 description: Basic invitation mechanizm for user/resources
-version: 0.0.10
+version: 0.0.11
 keywords:
   - user
   - register
