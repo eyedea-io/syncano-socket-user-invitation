@@ -37,13 +37,6 @@ describe('invite', () => {
     assert.deepPropertyVal(result, 'data', fakeInvitation)
   })
 
-  it('can\'t update invitation without being authenticated', async () => {
-    const metaWithoutUser = Object.assign({}, meta, {user: undefined})
-    const result = await run('update', {args: {}, meta: metaWithoutUser})
-    assert.propertyVal(result, 'code', 401)
-    assert.propertyVal(result.data, 'message', 'Unauthorized.')
-  })
-
   it('internal error', async () => {
     const args = { status: 'fnished' }
     const SyncanoCoreStub = createSyncanoCoreStub(

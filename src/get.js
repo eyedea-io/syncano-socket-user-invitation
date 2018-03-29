@@ -3,13 +3,8 @@ import {MODELS} from './constants'
 
 export default async ctx => {
   const {data, response, logger} = new Syncano(ctx)
-  const {error, info, warn} = logger('user-invitation:get')
+  const {error, info} = logger('user-invitation:get')
   const {key} = ctx.args
-
-  if (!ctx.meta.user) {
-    warn('Unauthorized request.')
-    return response.json({message: 'Unauthorized.'}, 401)
-  }
 
   try {
     const invitation = await data.invitations
