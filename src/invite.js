@@ -4,12 +4,7 @@ import {MODELS} from './constants'
 
 export default async ctx => {
   const {data, response, logger} = new Syncano(ctx)
-  const {warn, error, info} = logger('user-invitation:invite')
-
-  if (!ctx.meta.user) {
-    warn('Unauthorized request.')
-    return response.json({message: 'Unauthorized.'}, 401)
-  }
+  const {error, info} = logger('user-invitation:invite')
 
   try {
     const invitation = await data
@@ -23,7 +18,7 @@ export default async ctx => {
         resource_type: ctx.args.resource_type
       })
 
-    info('Sucessfuly created inviation')
+    info('Sucessfuly created invitation')
     response.success(invitation)
   } catch (err) {
     error(err)

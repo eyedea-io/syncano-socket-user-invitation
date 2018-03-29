@@ -29,6 +29,7 @@ classes:
       type: object
 endpoints:
   invite:
+    private: true
     description: Create invitation for a given e-mail
     inputs:
       email:
@@ -61,6 +62,7 @@ endpoints:
         description: Failed
         example: {}
   get:
+    private: true
     description: Get invitation by invtiation key
     inputs:
       key:
@@ -73,6 +75,7 @@ endpoints:
       fail:
         exit_code: 400
   update:
+    private: true
     description: Update invitation
     inputs:
       key:
@@ -89,6 +92,7 @@ endpoints:
       fail:
         exit_code: 400
   list:
+    private: true
     description: List invitation for given resource ID and type
     inputs:
       resource_id:

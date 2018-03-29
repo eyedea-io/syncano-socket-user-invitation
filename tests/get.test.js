@@ -50,11 +50,4 @@ describe('get', () => {
     assert.propertyVal(result, 'code', 200)
     assert.deepPropertyVal(result, 'data', fakeInvitation)
   })
-
-  it('can\'t get invitation without being authenticated', async () => {
-    const metaWithoutUser = Object.assign({}, meta, {user: undefined})
-    const result = await run('get', {args: {}, meta: metaWithoutUser})
-    assert.propertyVal(result, 'code', 401)
-    assert.propertyVal(result.data, 'message', 'Unauthorized.')
-  })
 })
