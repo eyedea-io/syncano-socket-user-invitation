@@ -6,7 +6,7 @@ machine:
 
 dependencies:
   override:
-    - yarn global add @syncano/cli@0.10.0-alpha.f21aa8b8
+    - yarn global add @syncano/cli@0.12.0-alpha.cb34c83f
 
 deployment:
   production:
