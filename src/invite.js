@@ -15,7 +15,8 @@ export default async ctx => {
         email: ctx.args.email,
         key: crypto.randomBytes(16).toString('hex'),
         resource_id: ctx.args.resource_id,
-        resource_type: ctx.args.resource_type
+        resource_type: ctx.args.resource_type,
+        status: 'pending'
       })
 
     info('Sucessfuly created invitation')
