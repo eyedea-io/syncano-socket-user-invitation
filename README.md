@@ -1,4 +1,4 @@
-# SSyncano Socket for Bbasic invitation mechanizm for user/resources
+# Syncano Socket for managing inviting user to the resource
 
 [![Syncano Socket](https://img.shields.io/badge/syncano-socket-blue.svg)](https://syncano.io)
 [![CircleCI branch](https://img.shields.io/circleci/project/github/eyedea-io/syncano-socket-user-invitation/master.svg)](https://circleci.com/gh/eyedea-io/syncano-socket-user-invitation/tree/master)
