@@ -1,40 +1,97 @@
 {
+  "name": "@eyedea-sockets/user-invitation",
+  "version": "0.0.1",
+  "public": true,
+  "description": "Syncano Socket for Bbasic invitation mechanizm for user/resources",
+  "author": "EYEDEA <hello@eyedea.io> (https://eyedea.io)",
+  "repository": "https://github.com/eyedea-io/syncano-socket-user-invitation.git",
   "license": "MIT",
+  "keywords": [
+    "serverless",
+    "syncano",
+    "socket",
+    "user",
+    "invitation"
+  ],
+  "peerDependencies": {
+    "@syncano/cli": "0.13.0-alpha.4d352111"
+  },
   "dependencies": {
-    "@syncano/core": "^0.11.0-alpha.4f8885a3"
+    "@eyedea/syncano": "0.2.0"
   },
   "scripts": {
-    "build": "npm install && npm run build:src && npm run build:env",
+    "build": "npm run build:src && npm run build:env",
     "build:src": "sh ./bin/compile",
     "build:env": "sh ./bin/compile-env",
-    "test": "yarn && npm-run-all --parallel test:lint test:e2e:coverage",
-    "test:e2e-single": "cross-env NODE_ENV=test mocha -s 1800 --reporter spec --require babel-register --timeout 4000",
-    "test:e2e-single:coverage": "nyc --produce-source-map=true cross-env NODE_ENV=test mocha -s 1800 --reporter spec --require babel-register --timeout 4000",
-    "test:e2e": "npm run test:e2e-single 'tests/*.test.js'",
-    "test:e2e:coverage": "nyc --produce-source-map=true npm run test:e2e",
-    "test:lint": "standard --fix"
+    "test": "npm-run-all --parallel test:lint test:audit test:all",
+    "codecov": "codecov",
+    "test:all": "NODE_ENV=test jest e2e/.*\\.test\\.js unit/.*\\.test\\.js",
+    "test:unit": "NODE_ENV=test jest unit/.*\\.test\\.js",
+    "test:e2e": "NODE_ENV=test jest e2e/.*\\.test\\.js",
+    "test:audit": "npm audit",
+    "test:lint": "tslint --fix -c tslint.json ./src/**/*.ts"
   },
   "devDependencies": {
-    "@syncano/test": "canary",
-    "@syncano/test-tools": "canary",
-    "babel-cli": "^6.26.0",
-    "babel-core": "^6.26.0",
-    "chai": "^4.1.2",
-    "cross-env": "^5.1.4",
-    "lodash.merge": "^4.6.1",
-    "mocha": "^3.5.3",
+    "@babel/cli": "^7.0.0-beta.55",
+    "@babel/core": "^7.0.0-beta.55",
+    "@babel/preset-env": "^7.0.0-beta.55",
+    "@babel/preset-typescript": "^7.0.0-beta.55",
+    "@syncano/test": "0.13.0-alpha.4d352111",
+    "@types/node": "^10.5.6",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-jest": "^23.0.1",
+    "babel-plugin-istanbul": "^4.1.6",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "codecov": "^3.0.4",
+    "jest": "^23.4.2",
     "npm-run-all": "^4.1.1",
-    "nyc": "^11.2.1",
-    "sinon": "^4.4.6",
-    "standard": "^10.0.3"
+    "sinon": "^5.1.0",
+    "ts-jest": "23.0.1",
+    "tslint": "5.11.0",
+    "tslint-eslint-rules": "5.3.1",
+    "tslint-react": "3.6.0",
+    "typescript": "^2.7.2"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "globals": {
+      "ts-jest": {
+        "useBabelrc": true,
+        "ignoreCoverageForAllDecorators": true
+      }
+    },
+    "moduleFileExtensions": [
+      "ts",
+      "js"
+    ],
+    "testMatch": [],
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "src/**/*.ts",
+      "!src/**/*.d.ts"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 80,
+        "functions": 70,
+        "lines": 80,
+        "statements": -10
+      }
+    }
   },
   "babel": {
+    "sourceMaps": "inline",
+    "plugins": [
+      "transform-class-properties",
+      "istanbul"
+    ],
     "presets": [
+      "@babel/preset-typescript",
       [
-        "env",
+        "@babel/preset-env",
         {
           "targets": {
-            "node": "7"
+            "node": "8"
           }
         }
       ]

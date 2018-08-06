@@ -1,13 +1,5 @@
 name: user-invitation
 description: Basic invitation mechanizm for user/resources
-version: 0.0.13
-keywords:
-  - user
-  - register
-  - invitation
-  - auth
-  - authentication
-  - eyedea
 classes:
   invitations:
     - name: email
@@ -16,10 +8,10 @@ classes:
     - name: key
       type: string
       filter_index: true
-    - name: resource_id
+    - name: resourceID
       type: string
       filter_index: true
-    - name: resource_type
+    - name: resourceType
       type: string
       filter_index: true
     - name: status
@@ -32,25 +24,30 @@ endpoints:
     private: true
     description: Create invitation for a given e-mail
     inputs:
-      email:
-        type: string
-        description: User e-mail
-        example: joe@mail.com
-      resource_id:
-        type: integer
-        description: ID of the resource related to invitation
-        example: 12345
-      resource_type:
-        type: string
-        description: Type of the resource
-        example: company
-      details:
-        type: object
-        description: Invitation details inform of the object
-        example: |
-          {
-            "company_id": "12345"
-          }
+      required:
+        - email
+        - resourceID
+        - resourceType
+      properties:
+        email:
+          type: string
+          description: User e-mail
+          example: joe@mail.com
+        resourceID:
+          type: integer
+          description: ID of the resource related to invitation
+          example: 12345
+        resourceType:
+          type: string
+          description: Type of the resource
+          example: company
+        details:
+          type: object
+          description: Invitation details inform of the object
+          example: |
+            {
+              "company_id": "12345"
+            }
     outputs:
       success:
         exit_code: 200
@@ -65,10 +62,11 @@ endpoints:
     private: true
     description: Get invitation by invtiation key
     inputs:
-      key:
-        type: string
-        description: Key of the invitation
-        example: 1232141254215512600
+      properties:
+        key:
+          type: string
+          description: Key of the invitation
+          example: 1232141254215512600
     outputs:
       success:
         exit_code: 200
@@ -78,14 +76,15 @@ endpoints:
     private: true
     description: Update invitation
     inputs:
-      key:
-        type: string
-        description: Invitation key
-        example: 1232141254215512600
-      status:
-        type: string
-        description: Status of the invitation
-        example: pending
+      properties:
+        key:
+          type: string
+          description: Invitation key
+          example: 1232141254215512600
+        status:
+          type: string
+          description: Status of the invitation
+          example: pending
     outputs:
       success:
         exit_code: 200
@@ -95,14 +94,15 @@ endpoints:
     private: true
     description: List invitation for given resource ID and type
     inputs:
-      resource_id:
-        type: integer
-        description: ID of the resource related to invitation
-        example: 12345
-      resource_type:
-        type: string
-        description: Type of the resource
-        example: company
+      properties:
+        resourceID:
+          type: integer
+          description: ID of the resource related to invitation
+          example: 12345
+        resourceType:
+          type: string
+          description: Type of the resource
+          example: company
     outputs:
       fail:
         exit_code: 400

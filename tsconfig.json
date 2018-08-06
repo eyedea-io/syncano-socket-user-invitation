@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "types": [
+      "node"
+    ],
+    "noUnusedParameters": true,
+    "noUnusedLocals": true,
+    "experimentalDecorators": true,
+    "sourceMap": true,
+    "noImplicitAny": false,
+    "module": "esnext",
+    "lib": [
+      "es6",
+      "dom",
+      "es2017"
+    ],
+    "moduleResolution": "node",
+    "target": "esnext",
+    "typeRoots": [
+      "node_modules/@types"
+    ]
+  }
+}
