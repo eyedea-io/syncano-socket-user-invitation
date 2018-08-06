@@ -1,8 +1,8 @@
 {
   "name": "@eyedea-sockets/user-invitation",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "public": true,
-  "description": "Syncano Socket for Bbasic invitation mechanizm for user/resources",
+  "description": "Syncano Socket for managing inviting user to the resource",
   "author": "EYEDEA <hello@eyedea.io> (https://eyedea.io)",
   "repository": "https://github.com/eyedea-io/syncano-socket-user-invitation.git",
   "license": "MIT",
@@ -73,7 +73,7 @@
     "coverageThreshold": {
       "global": {
         "branches": 80,
-        "functions": 70,
+        "functions": 80,
         "lines": 80,
         "statements": -10
       }
