@@ -3,8 +3,8 @@ export const MODELS = {
     'key',
     'details',
     'email',
-    'resource_type',
-    'resource_id',
+    'resourceType',
+    'resourceID',
     'status',
   ],
 }
