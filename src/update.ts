@@ -14,7 +14,7 @@ class Endpoint extends S.Endpoint<Args> {
     const invitation = await data.invitations
       // .fields(MODELS.invitation) - TODO: fields don't work with update
       .where('key', args.key)
-      .update({status: args.key})
+      .update({status: args.status})
 
     this.logger.info('Sucessfuly updated inviation')
     response.success(invitation)
