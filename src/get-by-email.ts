@@ -1,24 +1,23 @@
 import * as S from '@eyedea/syncano'
-import {MODELS} from './constants'
 
 interface Args {
-  resourceID: string
+  resourceID: number
   resourceType: string
+  email: string
 }
 
 class Endpoint extends S.Endpoint<Args> {
   async run(
-    {response, data}: S.Core,
+    {data, response}: S.Core,
     {args}: S.Context<Args>
   ) {
-    const invitations = await data.invitations
-      .where('resourceID', String(args.resourceID))
-      .where('resourceType', String(args.resourceType))
-      .fields(MODELS.invitation)
-      .list()
+    const invitation = await data.invitations
+      .where('email', args.email)
+      .where('resourceType', args.resourceType)
+      .where('resourceID', args.resourceID)
+      .first()
 
-    this.logger.info(`Successfuly loaded invitations(${invitations.length}).`)
-    response.success(invitations)
+    response.json(invitation)
   }
 
   // Any error thrown in `run` method can be handled using `endpointDidCatch` method

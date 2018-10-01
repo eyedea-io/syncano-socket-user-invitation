@@ -2,3 +2,4 @@ node_modules
 **/scripts/.bundles
 .dist
 .nyc_output
+.zip
