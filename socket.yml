@@ -19,6 +19,8 @@ classes:
       filter_index: true
     - name: details
       type: object
+    - name: sentAt
+      type: datetime
 endpoints:
   invite:
     private: true
@@ -67,6 +69,27 @@ endpoints:
           type: string
           description: Key of the invitation
           example: 1232141254215512600
+    outputs:
+      success:
+        exit_code: 200
+      fail:
+        exit_code: 400
+  get-by-email:
+    private: true
+    description: Get invitation by email
+    inputs:
+      required:
+        - email
+        - resourceID
+        - resourceType
+      properties:
+        email:
+          type: string
+          format: email
+        resourceID:
+          type: string
+        resourceType:
+          type: string
     outputs:
       success:
         exit_code: 200

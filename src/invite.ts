@@ -7,10 +7,12 @@ interface Args {
   email: string
   resourceID: string
   resourceType: string
+  status?: string
 }
 
+const DEFAULT_STATUS = 'pending'
+
 class Endpoint extends S.Endpoint<Args> {
-  counties: object
   async run(
     {response, data}: S.Core,
     {args}: S.Context<Args>
@@ -24,6 +26,8 @@ class Endpoint extends S.Endpoint<Args> {
         key: crypto.randomBytes(16).toString('hex'),
         resourceID: args.resourceID,
         resourceType: args.resourceType,
+        status: args.status || DEFAULT_STATUS,
+        sentAt: new Date().toISOString(),
       })
 
     this.logger.info('Sucessfuly created invitation')

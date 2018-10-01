@@ -6,7 +6,6 @@ interface Args {
 }
 
 class Endpoint extends S.Endpoint<Args> {
-  counties: object
   async run(
     {response, data}: S.Core,
     {args}: S.Context<Args>

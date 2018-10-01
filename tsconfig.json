@@ -3,6 +3,10 @@
     "types": [
       "node"
     ],
+    "strict": true,
+    "importHelpers": true,
+    "removeComments": true,
+    "forceConsistentCasingInFileNames": true,
     "noUnusedParameters": true,
     "noUnusedLocals": true,
     "experimentalDecorators": true,

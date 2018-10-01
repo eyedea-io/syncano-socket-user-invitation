@@ -6,7 +6,6 @@ interface Args {
 }
 
 class Endpoint extends S.Endpoint<Args> {
-  counties: object
   async run(
     {response, data}: S.Core,
     {args}: S.Context<Args>
@@ -14,7 +13,7 @@ class Endpoint extends S.Endpoint<Args> {
     const invitation = await data.invitations
       // .fields(MODELS.invitation) - TODO: fields don't work with update
       .where('key', args.key)
-      .update({status: args.key})
+      .update(args)
 
     this.logger.info('Sucessfuly updated inviation')
     response.success(invitation)
