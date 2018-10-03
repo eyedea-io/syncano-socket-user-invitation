@@ -1,6 +1,6 @@
 {
   "name": "@eyedea-sockets/user-invitation",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "public": true,
   "description": "Syncano Socket for managing inviting user to the resource",
   "author": "EYEDEA <hello@eyedea.io> (https://eyedea.io)",
